@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const PORT = 3000;
+const PORT = 3000 || process.env.PORT;
 const bodyParser = require("body-parser");
 const cookieParser = require('cookie-parser');
 const bcrypt = require("bcrypt");
