@@ -3,6 +3,13 @@ const app = express();
 const PORT = 3000 || process.env.PORT;
 const bodyParser = require("body-parser");
 const cookieParser = require('cookie-parser');
+const {
+  generateRandomString, 
+  emailLookUp, 
+  getPasswordByEmail, 
+  correctUser, 
+  urlsForUser
+} = require("./helpers")
 const bcrypt = require("bcrypt");
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -25,52 +32,6 @@ const users ={
     email: "user2@example.com", 
     password: "dishwasher-funk"
   }
-}
-
-function generateRandomString(){
-  let str ="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
-  let output = "";
-  for(let i=0; i<6; i++){
-    output += str[Math.floor(Math.random()*str.length)];
-  }
-  return output;
-}
-
-function emailLookUp(users, email){
-  for(let user in users){
-    if(users[user]["email"] == email){
-      return true;
-    }
-  }
-  return false;
-}
-
-function getPasswordByEmail(email, users){
-  for(let user in users){
-    if(users[user]['email'] == email){
-      return users[user]["password"];
-    }  
-  }
-  return "";
-}
-
-function correctUser(users, email){
-  for(let user in users){
-    if(users[user]['email'] == email){
-      return users[user];
-    }
-  }
-  return {};
-}
-
-function urlsForUser(urlDatabase, userId){
-   let output ={};
-   for(let url in urlDatabase){
-     if(urlDatabase[url]["userID"] == userId){
-       output[url] = urlDatabase[url];
-     }
-   }
-   return output;
 }
 
 app.get("/", (req,res)=>{
