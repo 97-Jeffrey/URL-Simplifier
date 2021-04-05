@@ -11,7 +11,7 @@
       <div class="card-header"></div>
       <div class="card-body">
         <h5 class="card-title">The Original URL: <%= longURL %></h5>
-        <p class="card-text">Simplified URL: <a href="/u/<%= shortURL %>"><%= shortURL %></a></p>
+        <p class="card-text">Simplified URL: <a href="/u/<%= shortURL %>" target="_blank"><%= shortURL %></a></p>
       </div>
   </div>
   <% if(user){%>
@@ -21,7 +21,7 @@
       <h4 class="card-title">Change the URL destination:</h4>
       <form action="/urls/<%= shortURL%>" method="POST">
         <input class="form-control" type="text" name="longURL" placeholder="http://">
-        <button type="submit" class="btn btn-info btn-sm m-3">Submit</button>
+        <button type="submit" class="btn btn-info btn-sm m-3">Change</button>
       </form>
     </div>
   <div class="card-footer text-muted"></div>
