@@ -15,13 +15,12 @@ app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
 
-
 const urlDatabase = {
   "b2xVn2": { longURL:"http://www.lighthouselabs.ca", userID:"userRandomID" },
   "9sm5xK":{ longURL: "http://www.google.com", userID:"user2RandomID" }
 };
 
-const users ={
+ const users ={
   "userRandomID": {
     id: "userRandomID", 
     email: "user@example.com", 
@@ -32,7 +31,7 @@ const users ={
     email: "user2@example.com", 
     password: "dishwasher-funk"
   }
-}
+};
 
 app.get("/", (req,res)=>{
   res.clearCookie("user_id");
