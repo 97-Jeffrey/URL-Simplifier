@@ -42,6 +42,6 @@ Users can view their created url in `/urls` page. please be noted that users can
 
 - Run the development web server using the `node index.js` command.
 
-- After Nodemon is installed, use `npm start to run`.
+- After Nodemon is installed, use `npm start` to run.
 
 - Please navigate to [localhost:3000](http://localhost:3000/) to view the app.
