@@ -120,7 +120,7 @@ app.post("/register", (req,res)=>{
     return;
   }
   else if(emailLookUp(users, email)){
-    const errorMessage = "The Email You Entered Is Used By Others, Please Use Other Emails";
+    const errorMessage = "The email You entered already exist, Please log in or use other emails";
     const templateVars = { 
       urls: urlDatabase, 
       user: users[req.cookies['user_id']],
