@@ -9,12 +9,12 @@ app.set("view engine", "ejs");
 
 // All routes:
 const urlsRoutes = require("./routes/urls");
-const uRoutes = require("./routes/u");
+const uRoute = require("./routes/u");
 const authRoutes = require("./routes/auth");
 
 // routes are used as middleware function:
 app.use("/urls", urlsRoutes);
-app.use("/u", uRoutes);
+app.use("/u", uRoute);
 app.use("/", authRoutes);
 
 app.listen(PORT, ()=>{
