@@ -16,85 +16,17 @@ app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
 
+const urlsRoutes = require("./routes/urls")
+const uRoutes = require("./routes/u");
 
+
+app.use("/urls", urlsRoutes);
+app.use("/u", uRoutes);
 app.get("/", (req,res)=>{
   res.clearCookie("user_id");
   res.redirect("/urls");
 })
 
-app.get("/urls", (req,res)=>{
-  const templateVars = { urls: urlsForUser(urlDatabase,req.cookies["user_id"]), user: users[req.cookies['user_id']] };
-  res.render("urls_index", templateVars)
-})
-
-app.get("/urls/new", (req,res)=>{
-  const templateVars = { 
-    user: users[req.cookies['user_id']]
-  }
-  if(!req.cookies["user_id"]){
-    res.redirect("/login");
-  }else{
-    res.render("urls_new", templateVars);
-  }
-  
-})
-
-// Add a new url into urls;
-app.post("/urls", (req,res)=>{
-  const { longURL } = req.body;
-  const shortURL = generateRandomString();
-  urlDatabase[shortURL] = {longURL, userID:req.cookies['user_id']};
-  res.redirect(`/urls/${shortURL}`);
-})
-
-// Details of each url
-app.get("/urls/:shortURL", (req,res)=>{
-  const { shortURL } = req.params;
-  const templateVar = {
-    shortURL, 
-    longURL:urlDatabase[shortURL]["longURL"],
-    user: users[req.cookies['user_id']]
-  };
-  const userId = req.cookies["user_id"];
-  if(urlDatabase[shortURL].userID !== userId){
-    res.redirect("/urls");
-    console.log("CAN NOT BE EDITED")
-  }
-  res.render("urls_show", templateVar);
-})
-
-// Delete a url
-app.post("/urls/:shortURL/delete", (req,res)=>{
-  const { shortURL } = req.params;
-  const userId = req.cookies["user_id"];
-  if(urlDatabase[shortURL].userID !== userId){
-    res.redirect('/urls');
-    console.log("CAN BE DELETED")
-  }else{
-    delete urlDatabase[shortURL];
-    res.redirect("/urls");
-  }
-})
-
-// Edit url:
-app.post("/urls/:id", (req,res)=>{
-  const { id } = req.params;
-  const { longURL } = req.body;
-  if(!longURL){
-    res.redirect("back");
-    return;
-  }
-  urlDatabase[id] = { longURL, userID: req.cookies["user_id"] };
-  res.redirect("/urls");
-  
-})
-
-// Use shortened url as replacements to browse instead of the long one:
-app.get("/u/:shortURL", (req,res)=>{
-  const { shortURL } = req.params;
-  const longURL = urlDatabase[shortURL]["longURL"];
-  res.redirect(longURL);
-})
 
 // user register here:
 app.get("/register",(req,res)=>{
