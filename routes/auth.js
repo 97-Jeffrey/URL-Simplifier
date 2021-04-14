@@ -5,8 +5,7 @@ const {
   generateRandomString, 
   emailLookUp, 
   getPasswordByEmail, 
-  correctUser, 
-  urlsForUser
+  correctUser
 } = require("../helpers");
 const { urlDatabase, users } = require("../data");
 
